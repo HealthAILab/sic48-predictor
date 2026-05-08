@@ -1,0 +1,173 @@
+{
+  "data_path": "before.csv",
+  "deployment_route": "B_raw_12_feature_pipeline",
+  "input_feature_space": "raw_clinical_units_12_features",
+  "target_col": "sic_diagnosis_48h",
+  "dataset_col": "dataset_label",
+  "feature_cols": [
+    "sofa_first_day",
+    "liver_disease",
+    "po2_max",
+    "chloride_min",
+    "hemoglobin_min",
+    "abs_neutrophils_max",
+    "bilirubin_total_max",
+    "pt_max",
+    "delta_lactate",
+    "delta_hemoglobin",
+    "rdw",
+    "mchc"
+  ],
+  "numeric_cols": [
+    "sofa_first_day",
+    "liver_disease",
+    "po2_max",
+    "chloride_min",
+    "hemoglobin_min",
+    "abs_neutrophils_max",
+    "bilirubin_total_max",
+    "pt_max",
+    "delta_lactate",
+    "delta_hemoglobin",
+    "rdw",
+    "mchc"
+  ],
+  "categorical_cols": [],
+  "dropped_known_non_feature_cols": [
+    "sic_diagnosis_48h",
+    "dataset_label"
+  ],
+  "package_versions": {
+    "python": "3.9.6",
+    "numpy": "2.0.2",
+    "pandas": "2.3.2",
+    "scikit_learn": "1.6.1",
+    "joblib": "1.5.2",
+    "xgboost": "2.1.4",
+    "lightgbm": "4.6.0"
+  },
+  "sanitize_info": {
+    "train": {
+      "non_finite_replaced": 15053,
+      "extreme_replaced": 0
+    },
+    "val": {
+      "non_finite_replaced": 4232,
+      "extreme_replaced": 0
+    },
+    "test": {
+      "non_finite_replaced": 2201,
+      "extreme_replaced": 0
+    },
+    "extreme_abs_value": 1000000000000.0
+  },
+  "random_state": 42,
+  "cv_splits": 5,
+  "n_boot": 1000,
+  "threshold_metric": "youden",
+  "raw_threshold": 0.4491353929042816,
+  "selected_threshold": 0.5302138482126684,
+  "deployment_probability_source": "calibrated",
+  "raw_model_path": "final_model_XGBoost_raw.pkl",
+  "deployment_model_path": "final_model_XGBoost_sigmoid.pkl",
+  "calibration_info": {
+    "requested_method": "sigmoid",
+    "method": "sigmoid",
+    "used_calibration": true,
+    "calibration_subset_n": 1748,
+    "threshold_subset_n": 1749,
+    "threshold_metric": "youden",
+    "raw_threshold": 0.4491353929042816,
+    "raw_threshold_score": 0.6978359801220764,
+    "raw_probability_unique_count_val": 3496,
+    "raw_prob_at_one_fraction_val": 0.0,
+    "raw_prob_at_zero_fraction_val": 0.0,
+    "threshold_score": 0.7078433754454163,
+    "calibrated_threshold": 0.5302138482126684,
+    "calibrated_probability_unique_count_val": 3496,
+    "calibrated_prob_at_one_fraction_val": 0.0,
+    "calibrated_prob_at_zero_fraction_val": 0.0
+  },
+  "best_candidate_model": "XGBoost",
+  "best_params_clean": {
+    "colsample_bytree": 0.8,
+    "learning_rate": 0.1,
+    "max_depth": 3,
+    "min_child_weight": 1,
+    "n_estimators": 200,
+    "subsample": 0.8
+  },
+  "candidate_val_auc": 0.9207634500081023,
+  "candidate_val_auc_ci": [
+    0.9119329575838601,
+    0.9288541751066818
+  ],
+  "raw_validation_metrics": {
+    "threshold": 0.4491353929042816,
+    "auc": 0.9207634500081023,
+    "ap": 0.9482234512095649,
+    "accuracy": 0.8470117243351444,
+    "sensitivity": 0.8381137578998542,
+    "specificity": 0.8597222222222223,
+    "ppv": 0.8951194184839044,
+    "npv": 0.7880330999363463,
+    "f1": 0.8656791363294,
+    "brier": 0.11240317087330655,
+    "tn": 1238,
+    "fp": 202,
+    "fn": 333,
+    "tp": 1724
+  },
+  "final_validation_metrics": {
+    "threshold": 0.5302138482126684,
+    "auc": 0.9207634500081023,
+    "ap": 0.9482234512095649,
+    "accuracy": 0.8464398055476122,
+    "sensitivity": 0.8371414681575109,
+    "specificity": 0.8597222222222223,
+    "ppv": 0.895010395010395,
+    "npv": 0.7870311506675143,
+    "f1": 0.8651092690278824,
+    "brier": 0.11193044857472743,
+    "tn": 1238,
+    "fp": 202,
+    "fn": 335,
+    "tp": 1722
+  },
+  "raw_test_metrics": {
+    "threshold": 0.4491353929042816,
+    "auc": 0.9345278587625527,
+    "ap": 0.9580626290633234,
+    "accuracy": 0.8576329331046312,
+    "sensitivity": 0.8493683187560739,
+    "specificity": 0.8694444444444445,
+    "ppv": 0.9028925619834711,
+    "npv": 0.8015364916773368,
+    "f1": 0.8753129694541812,
+    "brier": 0.10001101040950086,
+    "tn": 626,
+    "fp": 94,
+    "fn": 155,
+    "tp": 874,
+    "auc_ci_low": 0.92267867265954,
+    "auc_ci_high": 0.9455678719900658
+  },
+  "final_test_metrics": {
+    "threshold": 0.5302138482126684,
+    "auc": 0.9345278587625527,
+    "ap": 0.9580626290633234,
+    "accuracy": 0.8576329331046312,
+    "sensitivity": 0.8493683187560739,
+    "specificity": 0.8694444444444445,
+    "ppv": 0.9028925619834711,
+    "npv": 0.8015364916773368,
+    "f1": 0.8753129694541812,
+    "brier": 0.10015534673438374,
+    "tn": 626,
+    "fp": 94,
+    "fn": 155,
+    "tp": 874,
+    "auc_ci_low": 0.92267867265954,
+    "auc_ci_high": 0.9455678719900658
+  }
+}

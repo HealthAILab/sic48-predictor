@@ -1,0 +1,28 @@
+最佳候选模型: XGBoost
+选模依据: Validation AUC, tie-break by Validation AP
+阈值优化指标: youden
+请求的校准方法: sigmoid
+最终部署概率来源: calibrated
+raw 阈值: 0.449
+deployment 阈值: 0.530
+概率校准: sigmoid
+Val AUC (candidate/raw): 0.921
+Val AUC (deployment): 0.921
+Test AUC (raw): 0.935 (95% CI: 0.923-0.946)
+Test AUC (deployment): 0.935 (95% CI: 0.923-0.946)
+Test AP (raw): 0.958
+Test AP (deployment): 0.958
+Val prob unique count raw/deployment: 3496 / 3496
+Val prob@1 fraction raw/deployment: 0.0000 / 0.0000
+
+[Deployment recommendation]
+当前脚本面向 Route B：直接使用原始 12 特征训练完整 Pipeline。前端应直接输入原始临床单位，不再手工复现外部 MICE 处理。
+前端建议同时展示 raw 概率与 deployment 概率；若 deployment 概率出现明显平台效应，可优先用于风险分层而非细粒度概率展示。
+
+最佳参数:
+  colsample_bytree: 0.8
+  learning_rate: 0.1
+  max_depth: 3
+  min_child_weight: 1
+  n_estimators: 200
+  subsample: 0.8
