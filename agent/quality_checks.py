@@ -22,9 +22,25 @@ _EN_PATTERNS = [
 ]
 
 _REQUIRED_HEADINGS = {
-    "zh": ["最终风险评估", "关键变量", "循证推理", "重点监测因素", "解读边界"],
-    "en": ["Final Risk Assessment", "Key Variables", "Reasoning with Evidence", "Factors Needing Monitoring", "Interpretation Boundaries"],
+    "zh": ["最终风险评估", "关键变量", "循证推理", "重点监测因素"],
+    "en": ["Final Risk Assessment", "Key Variables", "Reasoning with Evidence", "Factors Needing Monitoring"],
 }
+
+
+# Flag boilerplate only when it is generic. Do not penalize case-specific
+# uncertainty statements that actually affect the interpretation.
+_ZH_BOILERPLATE = re.compile(
+    r"(?:解读边界|免责声明|仅供(?:科研|研究|参考)|不能替代(?:医生|临床|医师)|"
+    r"不(?:等于|代表)(?:临床)?(?:确诊|诊断|因果)|SHAP.{0,8}不(?:等于|代表)因果|"
+    r"预测(?:结果|概率|风险)?不(?:等于|代表)(?:当前)?(?:临床)?(?:诊断|确诊))",
+    re.I,
+)
+_EN_BOILERPLATE = re.compile(
+    r"(?:Interpretation Boundaries|Disclaimer|for research (?:purposes|use) only|"
+    r"does not (?:replace|substitute for) (?:clinical|medical|physician)|"
+    r"prediction is not (?:a )?diagnosis|SHAP (?:is not|does not establish) causa|"
+    r"not a confirmed diagnosis)", re.I,
+)
 
 
 def extract_source_ids(text: str) -> List[str]:
@@ -61,6 +77,19 @@ def report_quality_flags(
         if heading.lower() not in value.lower():
             flags.append(f"missing_section:{heading}")
 
+    boilerplate = _EN_BOILERPLATE if language == "en" else _ZH_BOILERPLATE
+    if boilerplate.search(value):
+        flags.append("defensive_boilerplate")
+    # Repeated negation-heavy caveats often indicate the LLM is writing for
+    # anticipated criticism rather than explaining the case. Trigger a rewrite,
+    # but retain specific factual limitations in the rewritten report.
+    negative_phrases = (
+        r"\b(?:does not (?:mean|imply|indicate)|cannot|not necessarily|should not be taken as)\b"
+        if language == "en" else r"(?:不(?:代表|说明|意味着|等于)|不能(?:说明|证明|排除|替代))"
+    )
+    if len(re.findall(negative_phrases, value, flags=re.I)) >= 2:
+        flags.append("repetitive_defensive_negation")
+
     allowed = _allowed_source_ids(allowed_source_ids)
     if allowed:
         for sid in extract_source_ids(value):
@@ -85,21 +114,25 @@ def report_quality_flags(
 
 
 def build_repair_instruction(flags: List[str], language: str = "zh") -> str:
-    """Build a compact instruction for one-pass report repair."""
+    """Repair misleading claims and eliminate empty defensive prose in one pass."""
     joined = ", ".join(flags) if flags else "none"
     if language == "en":
         return (
-            "Rewrite the same five-section report, preserving the model probability, risk class, patient values, "
-            "and valid inline source IDs. Correct only the following QA issues: " + joined + ". "
-            "Do not add new patient facts. In particular: PaO2 max alone cannot establish preserved/normal oxygenation "
-            "or exclude respiratory failure without contemporaneous FiO2/PF ratio/support; a lower-risk SHAP direction is "
-            "a model contribution, not a protective effect; low SIC prediction must not be equated with mild or stable overall illness."
+            "Rewrite the same four-section report, preserving the predicted 48-hour SIC probability, risk class, "
+            "observed patient values, and authorized [R#] citations. Fix these QA flags: " + joined + ". "
+            "Delete generic disclaimer paragraphs and self-defensive clauses rather than paraphrasing them. "
+            "Do not add an Interpretation Boundaries section. State the result and SHAP direction positively. "
+            "Avoid describing PaO2 max alone as normal oxygenation, lower-risk SHAP factors as protective, "
+            "or low SIC risk as overall clinical stability. Keep only case-specific facts and evidence. "
+            "Never invent data or clinical diagnoses."
         )
     return (
-        "请在不改变模型概率、风险分层、患者原始数值和有效[R#]/[P#]引用的前提下，重写同样的五段式报告，"
-        "仅修正以下质控问题：" + joined + "。不得新增患者事实。特别注意：PaO₂最大值单独不能证明氧合良好/正常，"
-        "也不能排除呼吸衰竭，缺少同步FiO₂/PF比值/呼吸支持信息时必须保留边界；SHAP向低风险方向移动不等于保护作用；"
-        "SIC低风险预测不能推导为总体病情轻或稳定。"
+        "请重写同样的四部分病例报告，保留48小时SIC预测概率、风险分类、实际患者数值和有效[R#]引用；"
+        "本次质控问题：" + joined + "。只修正问题，不补充患者事实。"
+        "删掉用于自我辩护的句子和免责声明，不是换一种说法再写一遍。"
+        "不要添加‘解读边界’章节；以‘48小时预测结果、变量上推或下拉、相关证据、具体监测重点’进行正面陈述。"
+        "避免把单个PaO₂最大值解释成整体氧合正常、把SHAP下拉变量称为保护因素、"
+        "把SIC低风险写成总体病情稳定。"
     )
 
 

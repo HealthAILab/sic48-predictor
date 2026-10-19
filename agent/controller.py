@@ -176,6 +176,53 @@ def _strip_generated_reference_section(answer: str) -> str:
     return text
 
 
+
+def _trim_defensive_report_prose(answer: str, language: str) -> str:
+    """Remove stock disclaimer sections/lines without touching clinical findings.
+
+    Prompting + the targeted QA rewrite do the semantic editing. This final
+    deterministic pass only handles obvious generic filler and the legacy
+    fifth section; it never removes evidence or case-specific uncertainties.
+    """
+    text = (answer or "").strip()
+    boundary_heading = re.compile(
+        r"^\s{0,3}#{1,6}\s*(?:⚠️\s*)?"
+        r"(?:解读边界|解释边界|局限性说明|Interpretation Boundaries|"
+        r"Interpretation Limits|Disclaimer)\s*$", re.I
+    )
+    # Whole-line boilerplate only: do not modify paragraphs discussing, e.g.,
+    # missing FiO2, unavailable coagulation parameters, or bleeding risk.
+    generic_line = re.compile(
+        r"^\s*(?:[-*]\s*)?(?:\*\*[^*]+\*\*[:：]\s*)?"
+        r"(?:本(?:报告|系统|结果|预测)|该(?:报告|结果)|预测(?:结果|概率)?|"
+        r"48\s*h\s*(?:SIC)?\s*风险预测|SHAP(?:结果|贡献)?|"
+        r"This (?:report|tool|prediction|result)|"
+        r"The (?:report|prediction)|Risk prediction|SHAP)"
+        r"\s*(?:仅供|只(?:用于|是)|不(?:代表|等于|意味着|说明|替代)|"
+        r"does not|is not|cannot|should not|is intended|is for)"
+        r"[^\n]{0,190}$", re.I
+    )
+    lines = []
+    skipping_boundary = False
+    for line in text.splitlines():
+        if boundary_heading.match(line):
+            skipping_boundary = True
+            continue
+        if skipping_boundary:
+            if re.match(r"^\s{0,3}#{1,6}\s+", line):
+                skipping_boundary = False
+            else:
+                continue
+        # Limit to standalone sentences that are only generic disclaimers.
+        # Mixed clinical statements are deliberately preserved for the QA model.
+        if generic_line.match(line.strip()):
+            continue
+        lines.append(line)
+    cleaned = "\n".join(lines)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
+    return cleaned
+
+
 def _decorate_report_headings(answer: str, language: str) -> str:
     """Normalize the compact report headings and keep one icon per section."""
     text = (answer or "").strip()
@@ -320,6 +367,7 @@ Generate the structured case interpretation now. Do not reveal the planning or r
     answer = _decorate_report_headings(answer, language)
     answer = _repair_report_if_needed(answer, language=language, evidence=evidence, case_context=case_context)
     answer = _strip_generated_reference_section(answer)
+    answer = _trim_defensive_report_prose(answer, language)
     answer = _decorate_report_headings(answer, language)
     used_ids = _used_evidence_ids(answer, evidence)
     return AgentRunResult(
