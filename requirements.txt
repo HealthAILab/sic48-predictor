@@ -1,8 +1,15 @@
-streamlit
+# Web UI / LLM client
+streamlit==1.51.0
+requests==2.31.0
+python-dotenv==0.21.0
+
+# Model runtime (aligned with final_model_metadata.json where possible)
 joblib==1.5.2
 numpy==2.0.2
 pandas==2.3.2
 scikit-learn==1.6.1
 xgboost==2.1.4
+
+# Explainability / plotting
 matplotlib
-shap==0.51.0
+shap

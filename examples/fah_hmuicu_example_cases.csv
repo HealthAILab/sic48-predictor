@@ -1,0 +1,11 @@
+example_id,sofa_first_day,liver_disease,po2_max,chloride_min,hemoglobin_min,abs_neutrophils_max,bilirubin_total_max,pt_max,delta_lactate,delta_hemoglobin,rdw,mchc,sic_diagnosis_48h,dataset_label,source_row_index,source
+FAH-01,2,0,125,102.0,8.2,0.42,0.6316,12.9,0.2,0.3,14.4,32.6,0,FAH-HMUICU,198,FAHHMU.csv; bilirubin converted from µmol/L to mg/dL; delta features derived from source paired values
+FAH-02,5,1,81,106.0,10.2,7.6,0.5205,11.6,0.1,1.9,13.7,35.0,1,FAH-HMUICU,181,FAHHMU.csv; bilirubin converted from µmol/L to mg/dL; delta features derived from source paired values
+FAH-03,8,0,61,101.0,11.4,4.81,1.2105,12.2,1.78,0.4,12.3,33.2,0,FAH-HMUICU,102,FAHHMU.csv; bilirubin converted from µmol/L to mg/dL; delta features derived from source paired values
+FAH-04,6,0,123,105.0,8.4,20.28,0.2456,25.1,0.15,0.6,13.1,32.6,1,FAH-HMUICU,58,FAHHMU.csv; bilirubin converted from µmol/L to mg/dL; delta features derived from source paired values
+FAH-05,8,1,170,100.0,5.6,9.48,1.9883,13.4,0.5,2.2,14.1,33.2,0,FAH-HMUICU,186,FAHHMU.csv; bilirubin converted from µmol/L to mg/dL; delta features derived from source paired values
+FAH-06,5,0,113,107.0,9.7,12.3,0.7368,19.1,4.67,0.3,16.9,33.2,1,FAH-HMUICU,101,FAHHMU.csv; bilirubin converted from µmol/L to mg/dL; delta features derived from source paired values
+FAH-07,9,0,119,123.0,7.1,17.28,1.5673,13.8,0.65,1.1,15.4,30.4,0,FAH-HMUICU,71,FAHHMU.csv; bilirubin converted from µmol/L to mg/dL; delta features derived from source paired values
+FAH-08,9,1,149,80.0,10.4,9.55,10.7135,20.6,1.4,2.3,13.5,32.2,1,FAH-HMUICU,147,FAHHMU.csv; bilirubin converted from µmol/L to mg/dL; delta features derived from source paired values
+FAH-09,15,1,138,102.0,13.5,18.73,12.2222,15.9,0.9,3.2,12.9,32.3,0,FAH-HMUICU,1,FAHHMU.csv; bilirubin converted from µmol/L to mg/dL; delta features derived from source paired values
+FAH-10,15,1,189,100.0,5.9,74.52,19.9649,18.5,1.3,0.5,16.2,33.9,1,FAH-HMUICU,0,FAHHMU.csv; bilirubin converted from µmol/L to mg/dL; delta features derived from source paired values

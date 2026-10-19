@@ -1,0 +1,174 @@
+{
+  "sources": {
+    "R1": {
+      "short": "Iba et al., BMJ Open, 2017",
+      "citation": "Iba T, Di Nisio M, Levy JH, et al. New criteria for sepsis-induced coagulopathy (SIC) following the revised sepsis definition: a retrospective analysis of a nationwide survey. BMJ Open. 2017;7:e017046. doi:10.1136/bmjopen-2017-017046."
+    },
+    "R2": {
+      "short": "Iba et al., J Thromb Haemost, 2019",
+      "citation": "Iba T, Levy JH, Warkentin TE, et al. Diagnosis and management of sepsis-induced coagulopathy and disseminated intravascular coagulation. J Thromb Haemost. 2019;17:1989-1994. doi:10.1111/jth.14578."
+    },
+    "R3": {
+      "short": "ISTH SSC communication, J Thromb Haemost, 2023",
+      "citation": "Iba T, Levi M, Thachil J, et al. Communication from the Scientific and Standardization Committee of the International Society on Thrombosis and Haemostasis on sepsis-induced coagulopathy in the management of sepsis. J Thromb Haemost. 2023;21:145-153. doi:10.1016/j.jtha.2022.10.022."
+    },
+    "R4": {
+      "short": "Iba et al., J Intensive Care, 2023",
+      "citation": "Iba T, Helms J, Connors JM, Levy JH. The pathophysiology, diagnosis, and management of sepsis-associated disseminated intravascular coagulation. J Intensive Care. 2023;11(1):24. doi:10.1186/s40560-023-00672-5."
+    },
+    "R5": {
+      "short": "Williams & Zou, Anesth Analg, 2024",
+      "citation": "Williams B, Zou L, Pittet JF, Chao W. Sepsis-Induced Coagulopathy: A Comprehensive Narrative Review of Pathophysiology, Clinical Presentation, Diagnosis, and Management Strategies. Anesth Analg. 2024;138(4):696-711. doi:10.1213/ANE.0000000000006888."
+    },
+    "R6": {
+      "short": "Surviving Sepsis Campaign, 2021",
+      "citation": "Evans L, Rhodes A, Alhazzani W, et al. Surviving sepsis campaign: international guidelines for management of sepsis and septic shock 2021. Intensive Care Med. 2021;47(11):1181-1247. doi:10.1007/s00134-021-06506-y."
+    },
+    "P1": {
+      "short": "Current study model specification",
+      "citation": "Current study model metadata and locked prediction specification: calibrated XGBoost model using 12 first-24-hour ICU predictors to estimate 48-hour SIC risk."
+    },
+    "R7": {
+      "short": "Iba et al., Ann Intensive Care, 2024",
+      "citation": "Iba T, Helms J, Levy JH. Sepsis-induced coagulopathy (SIC) in the management of sepsis. Ann Intensive Care. 2024;14(1):148. doi:10.1186/s13613-024-01380-5."
+    },
+    "R8": {
+      "short": "Curtiaud et al., Ann Intensive Care, 2025",
+      "citation": "Curtiaud A, Iba T, Angles-Cano E, Meziani F, Helms J. Biomarkers of sepsis-induced coagulopathy: diagnostic insights and potential therapeutic implications. Ann Intensive Care. 2025;15(1):12. doi:10.1186/s13613-025-01434-2."
+    },
+    "R9": {
+      "short": "Yamakawa et al., Int J Hematol, 2025",
+      "citation": "Yamakawa K, Okamoto K, Seki Y, et al. Clinical practice guidelines for management of disseminated intravascular coagulation in Japan 2024. Part 1: sepsis. Int J Hematol. 2025;121(5):592-604. doi:10.1007/s12185-024-03896-9."
+    },
+    "R10": {
+      "short": "Tanaka et al., Int J Hematol, 2021",
+      "citation": "Tanaka C, Tagami T, Kudo S, et al. Validation of sepsis-induced coagulopathy score in critically ill patients with septic shock: post hoc analysis of a nationwide multicenter observational study in Japan. Int J Hematol. 2021;114(2):164-171. doi:10.1007/s12185-021-03152-4."
+    },
+    "R11": {
+      "short": "You et al., Sci Prog, 2026",
+      "citation": "You W, Fan X, Xu P, Lei C, Zeng Y. Biomarkers and clinical factors associated with sepsis-induced coagulopathy: A systematic review and meta-analysis. Sci Prog. 2026;109(2):368504261435291. doi:10.1177/00368504261435291."
+    },
+    "R12": {
+      "short": "Shime et al., Acute Med Surg, 2025",
+      "citation": "Shime N, Nakada TA, Yatabe T, et al. The Japanese Clinical Practice Guidelines for Management of Sepsis and Septic Shock 2024. Acute Med Surg. 2025;12(1):e70037. doi:10.1002/ams2.70037."
+    },
+    "R13": {
+      "short": "Helms et al., Intensive Care Med, 2023",
+      "citation": "Helms J, Iba T, Connors JM, Gando S, Levi M, Meziani F, Levy JH. How to manage coagulopathies in critically ill patients. Intensive Care Med. 2023;49(3):273-290. doi:10.1007/s00134-023-06980-6."
+    },
+    "R14": {
+      "short": "Girardis et al., Intensive Care Med, 2024",
+      "citation": "Girardis M, David S, Ferrer R, et al. Understanding, assessing and treating immune, endothelial and haemostasis dysfunctions in bacterial sepsis. Intensive Care Med. 2024;50(10):1580-1592. doi:10.1007/s00134-024-07586-2."
+    }
+  },
+  "module_sources": {
+    "01_definition.md": [
+      "R1",
+      "R2",
+      "R3",
+      "R7"
+    ],
+    "02_pathophysiology.md": [
+      "R4",
+      "R5",
+      "R8",
+      "R14"
+    ],
+    "03_diagnostic_criteria.md": [
+      "R1",
+      "R3",
+      "R7",
+      "R9",
+      "R10"
+    ],
+    "04_sic_to_dic.md": [
+      "R3",
+      "R4",
+      "R7",
+      "R9"
+    ],
+    "05_laboratory_markers.md": [
+      "R5",
+      "R8",
+      "R11",
+      "R13"
+    ],
+    "06_clinical_monitoring.md": [
+      "R3",
+      "R7",
+      "R8",
+      "R9"
+    ],
+    "07_treatment_overview.md": [
+      "R3",
+      "R6",
+      "R7",
+      "R9",
+      "R12"
+    ],
+    "08_prognosis.md": [
+      "R1",
+      "R7",
+      "R10",
+      "R11"
+    ],
+    "09_model_interpretation.md": [
+      "P1",
+      "R1"
+    ],
+    "10_differential_diagnosis.md": [
+      "R4",
+      "R8",
+      "R13"
+    ],
+    "11_anticoagulation_evidence.md": [
+      "R3",
+      "R6",
+      "R7",
+      "R9",
+      "R12"
+    ],
+    "12_supportive_management.md": [
+      "R6",
+      "R9",
+      "R12",
+      "R13"
+    ],
+    "13_scores_and_frameworks.md": [
+      "R1",
+      "R3",
+      "R7",
+      "R9",
+      "R10"
+    ],
+    "14_common_questions.md": [
+      "R1",
+      "R3",
+      "R7",
+      "R8"
+    ],
+    "15_references.md": [
+      "R1",
+      "R2",
+      "R3",
+      "R4",
+      "R5",
+      "R6",
+      "R7",
+      "R8",
+      "R9",
+      "R10",
+      "R11",
+      "R12",
+      "R13",
+      "R14"
+    ],
+    "16_predictor_context.md": [
+      "P1",
+      "R5",
+      "R8",
+      "R11",
+      "R14"
+    ]
+  }
+}
